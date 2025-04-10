@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Culé</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@600&display=swap');
+        
+        :root {
+            --barca-blue: #004d98;
+            --barca-red: #a50044;
+            --barca-gold: #edbb00;
+            --barca-dark: #1a1a2e;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--barca-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 77, 152, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(165, 0, 68, 0.2) 0%, transparent 20%),
+                url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 550px;
+            border: 4px solid var(--barca-blue);
+            border-top: 8px solid var(--barca-red);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                var(--barca-red), 
+                var(--barca-blue), 
+                var(--barca-red));
+            animation: gradientMove 4s linear infinite;
+        }
+        
+        h2 {
+            color: var(--barca-blue);
+            text-align: center;
+            margin: 20px 0 30px;
+            font-size: 32px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Oswald', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--barca-blue), 
+                var(--barca-red), 
+                var(--barca-blue));
+            margin: 15px auto;
+            border-radius: 3px;
+            animation: gradientMove 4s linear infinite reverse;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--barca-blue);
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        label::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: var(--barca-red);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        input:focus {
+            border-color: var(--barca-red);
+            box-shadow: 0 0 0 4px rgba(165, 0, 68, 0.2);
+            outline: none;
+            background-color: white;
+            transform: translateY(-2px);
+        }
+        
+        .name-fields {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .name-fields .form-group {
+            flex: 1;
+        }
+        
+        .address-fields {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .address-fields .form-group:first-child {
+            flex: 2;
+        }
+        
+        .address-fields .form-group:last-child {
+            flex: 1;
+        }
+        
+        button {
+            background: linear-gradient(135deg, 
+                var(--barca-blue) 0%, 
+                var(--barca-red) 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 30px 0 20px;
+            box-shadow: 0 5px 15px rgba(0, 77, 152, 0.4);
+            z-index: 1;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                var(--barca-red) 0%, 
+                var(--barca-blue) 100%);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        button:hover::before {
+            left: 0;
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 77, 152, 0.6);
+            letter-spacing: 2px;
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .barca-badge {
+            text-align: center;
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .barca-badge img {
+            width: 80px;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+        
+        .barca-badge img:hover {
+            transform: rotate(15deg) scale(1.1);
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Efecto especial para los labels */
+        .form-group:hover label {
+            color: var(--barca-red);
+            transform: translateX(5px);
+        }
+        
+        .form-group:hover label::before {
+            height: 80%;
+            background: var(--barca-blue);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .name-fields, .address-fields {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-container {
+                padding: 25px;
+                margin: 20px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Registro Culé</h2>
+        <form action="procesar.php" method="post">
+            <div class="name-fields">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Lionel" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Ej. Messi" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="domicilio">Domicilio</label>
+                <input type="text" id="domicilio" name="domicilio" placeholder="Casa, Depto, etc." required>
+            </div>
+            
+            <div class="address-fields">
+                <div class="form-group">
+                    <label for="calle">Calle</label>
+                    <input type="text" id="calle" name="calle" placeholder="Nombre de la calle" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" name="numero" placeholder="Número" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="colonia">Colonia</label>
+                <input type="text" id="colonia" name="colonia" placeholder="Nombre de la colonia" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="codigo-postal">Código Postal</label>
+                <input type="text" id="codigo-postal" name="codigo-postal" placeholder="5 dígitos" pattern="[0-9]{5}" required>
+            </div>
+            
+            <button type="submit">ENVIAR DATOS</button>
+            
+            <div class="barca-badge">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" alt="Escudo FC Barcelona">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
